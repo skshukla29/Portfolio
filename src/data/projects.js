@@ -16,7 +16,7 @@ const projects = [
     desc: "Responsive React SPA with custom hooks, scroll animations, Jest tests, clean UI/UX design.",
     tech: "React, JavaScript, CSS, Jest, RTL",
     github: "https://github.com/skshukla29/Portfolio",
-    live: "https://portfolio-sk-2908.netlify.app/",
+    live: "https://itzzshashikant-portfolio.netlify.app/",
     frameColor: "#001a2e"
   },
   {
