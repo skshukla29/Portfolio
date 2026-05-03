@@ -248,6 +248,7 @@ function Work() {
 
   const previous = () => setActive((value) => (value - 1 + total) % total);
   const next = () => setActive((value) => (value + 1) % total);
+  const hasLiveDemo = typeof current?.live === 'string' && current.live.trim() !== '' && current.live !== '#';
 
   // Auto-scroll logic
   useEffect(() => {
@@ -309,11 +310,11 @@ function Work() {
                       
                       <div className="frame-actions">
                         <a
-                          href={project.live || '#'}
+                          href={project.live && project.live !== '#' ? project.live : undefined}
                           className="primary-btn small-btn spotlight-btn"
                           onClick={(e) => { if (!project.live || project.live === '#') e.preventDefault(); }}
-                          target={project.live && project.live !== '#' ? "_blank" : undefined}
-                          rel={project.live && project.live !== '#' ? "noreferrer" : undefined}
+                          target={hasLiveDemo ? "_blank" : undefined}
+                          rel={hasLiveDemo ? "noreferrer" : undefined}
                         >
                           Live Demo
                         </a>

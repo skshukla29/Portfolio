@@ -54,6 +54,8 @@ const overlayStyle = {
 };
 
 function FrameButtons({ project }) {
+  const hasLiveDemo = typeof project.live === "string" && project.live.trim() !== "" && project.live !== "#";
+
   const onButtonHover = (event) => {
     event.currentTarget.style.transform = "translateY(-2px)";
   };
@@ -65,13 +67,20 @@ function FrameButtons({ project }) {
   return (
     <div className="frame-actions" style={{ display: "flex", gap: "0.55rem", flexWrap: "wrap" }}>
       <a
-        href={project.live}
+        href={hasLiveDemo ? project.live : undefined}
         target="_blank"
-        rel="noreferrer"
+        rel={hasLiveDemo ? "noreferrer" : undefined}
         style={liveButtonStyle}
         onMouseEnter={onButtonHover}
         onMouseLeave={onButtonLeave}
-        onClick={(event) => event.stopPropagation()}
+        onClick={(event) => {
+          event.stopPropagation();
+          if (!hasLiveDemo) {
+            event.preventDefault();
+          }
+        }}
+        aria-disabled={!hasLiveDemo}
+        title={hasLiveDemo ? "Open live demo" : "Live demo not available yet"}
       >
         Live Demo -&gt;
       </a>

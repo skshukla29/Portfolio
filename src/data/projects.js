@@ -2,11 +2,11 @@ const projects = [
   {
     id: "speech-to-text",
     number: "01",
-    title: "Speech-to-Text Converter",
-    desc: "AI-powered audio upload & live recording with transcription, summarization, TTS, session history.",
-    tech: "React, Node.js, Express, Python, REST APIs",
-    github: "https://github.com/skshukla29",
-    live: "#",
+    title: "STT Converter",
+    desc: "Full-stack speech-to-text app with live recording, Whisper transcription, GPT summaries, task extraction, and TTS playback.",
+    tech: "React, Node.js, Express, Python, Whisper, GPT",
+    github: "https://github.com/skshukla29/STT-converter",
+    live: "",
     frameColor: "#1a0533"
   },
   {
@@ -72,6 +72,26 @@ const projects = [
     frameColor: "#001a2e",
     hackathon: true,
     hackathonLabel: "Hackathon Finalist"
+  },
+  {
+    id: "aquastore",
+    number: "08",
+    title: "AquaScore Prototype",
+    desc: "Next.js prototype with localStorage-backed dashboard CRUD, working auth flows, serverless API routes, and responsive marketing pages.",
+    tech: "Next.js, TypeScript, Tailwind CSS, Vercel",
+    github: "https://github.com/skshukla29/aquastore",
+    live: "https://aquascore.vercel.app/",
+    frameColor: "#00263a"
+  },
+  {
+    id: "citydemo",
+    number: "09",
+    title: "CitySorter Civic Platform",
+    desc: "Civic reporting platform for routing complaints, location-aware tracking, rewards, and multi-language support across devices.",
+    tech: "React, TypeScript, Tailwind CSS, Vercel",
+    github: "https://github.com/skshukla29/citydemo",
+    live: "https://citydemo-two.vercel.app/",
+    frameColor: "#1a2a14"
   }
 ];
 
