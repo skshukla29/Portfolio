@@ -1,4 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
+import SelectedWork from './pages/SelectedWork';
+import projects from './data/projects';
 
 function LoadingScreen({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -62,48 +64,7 @@ function LoadingScreen({ onComplete }) {
   );
 }
 
-const projects = [
-  {
-    id: 'speech-to-text',
-    number: '01',
-    title: 'Speech-to-Text Converter',
-    tech: 'React • Node.js • Express • Python • REST APIs',
-    desc: 'AI-powered audio upload and recording with transcription, summarization, TTS, and session history.',
-    color: '#1a0533'
-  },
-  {
-    id: 'portfolio',
-    number: '02',
-    title: 'Project Portfolio Showcase',
-    tech: 'React • JavaScript • CSS • Jest • RTL',
-    desc: 'React SPA with custom hooks, animations, and Jest tests.',
-    color: '#001a2e'
-  },
-  {
-    id: 'basketball',
-    number: '03',
-    title: 'Basketball Landing Page',
-    tech: 'HTML5 • CSS3 • JavaScript',
-    desc: 'Sports-themed responsive site with animations.',
-    color: '#0a1a00'
-  },
-  {
-    id: 'flashcard',
-    number: '04',
-    title: 'Flashcard Quiz App',
-    tech: 'React • JavaScript • CSS Animations',
-    desc: 'Interactive quiz with flip-card UI and score tracking.',
-    color: '#1a0a00'
-  },
-  {
-    id: 'chaplin',
-    number: '05',
-    title: 'Chaplin Chuckles',
-    tech: 'HTML • CSS',
-    desc: 'Pixel-perfect static site for a fictional comedy duo.',
-    color: '#1a001a'
-  }
-];
+// Use canonical project list from `src/data/projects.js`
 
 const experience = [
   {
@@ -330,7 +291,7 @@ function Work() {
                 style={{
                   '--offset': offset,
                   '--abs-offset': distance,
-                  '--frame-color': project.color,
+                  '--frame-color': project.frameColor,
                   '--frame-z': Math.max(0, 1 - distance * 0.25),
                   '--frame-scale': isActive ? 1.05 : 0.84, /* Spotlight scale */
                   '--frame-opacity': isActive ? 1 : 0.6
@@ -347,8 +308,16 @@ function Work() {
                       <p className="frame-tech spotlight-tech">{project.tech}</p>
                       
                       <div className="frame-actions">
-                        <a href="#" className="primary-btn small-btn spotlight-btn" onClick={(e) => e.preventDefault()}>Live Demo</a>
-                        <a href="https://github.com/skshukla29" target="_blank" rel="noreferrer" className="ghost-btn small-btn spotlight-btn">GitHub Repo</a>
+                        <a
+                          href={project.live || '#'}
+                          className="primary-btn small-btn spotlight-btn"
+                          onClick={(e) => { if (!project.live || project.live === '#') e.preventDefault(); }}
+                          target={project.live && project.live !== '#' ? "_blank" : undefined}
+                          rel={project.live && project.live !== '#' ? "noreferrer" : undefined}
+                        >
+                          Live Demo
+                        </a>
+                        <a href={project.github || 'https://github.com/skshukla29'} target="_blank" rel="noreferrer" className="ghost-btn small-btn spotlight-btn">GitHub Repo</a>
                       </div>
                     </div>
                   ) : (
@@ -606,7 +575,7 @@ function App() {
       <main>
         <Hero onJump={jump} />
         <SkillTicker />
-        <Work />
+        <SelectedWork />
         <SkillTicker />
         <About />
         <Contact />
