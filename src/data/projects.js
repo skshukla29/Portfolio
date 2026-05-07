@@ -7,7 +7,8 @@ const projects = [
     tech: "React, Node.js, Express, Python, Whisper, GPT",
     github: "https://github.com/skshukla29/STT-converter",
     live: "",
-    frameColor: "#1a0533"
+    frameColor: "#1a0533",
+    icon: "🎙️"
   },
   {
     id: "portfolio-showcase",
@@ -17,7 +18,8 @@ const projects = [
     tech: "React, JavaScript, CSS, Jest, RTL",
     github: "https://github.com/skshukla29/Portfolio",
     live: "https://itzzshashikant-portfolio.netlify.app/",
-    frameColor: "#001a2e"
+    frameColor: "#001a2e",
+    icon: "🗂️"
   },
   {
     id: "basketball-landing",
@@ -27,7 +29,8 @@ const projects = [
     tech: "HTML5, CSS3, Responsive Design",
     github: "https://github.com/skshukla29/basketball-Landingpage",
     live: "https://skshukla29.github.io/basketball-Landingpage/",
-    frameColor: "#0a1a00"
+    frameColor: "#0a1a00",
+    icon: "🏀"
   },
   {
     id: "flashcard-quiz",
@@ -37,7 +40,8 @@ const projects = [
     tech: "React, JavaScript, CSS Animations",
     github: "https://github.com/skshukla29/CodeAlpha_FlashcardQuizApp",
     live: "https://skshukla29.github.io/CodeAlpha_FlashcardQuizApp/",
-    frameColor: "#1a0a00"
+    frameColor: "#1a0a00",
+    icon: "🃏"
   },
   {
     id: "chaplin-chuckles",
@@ -47,7 +51,8 @@ const projects = [
     tech: "HTML, CSS, JavaScript, API Integration",
     github: "https://github.com/skshukla29/Chaplin--Chuckles",
     live: "https://skshukla29.github.io/Chaplin--Chuckles/",
-    frameColor: "#1a001a"
+    frameColor: "#1a001a",
+    icon: "😄"
   },
   {
     id: "safalta-setu",
@@ -59,7 +64,8 @@ const projects = [
     live: "https://safalta-setu-eta.vercel.app/",
     frameColor: "#001a10",
     hackathon: true,
-    hackathonLabel: "Hackathon Finalist"
+    hackathonLabel: "Hackathon Finalist",
+    icon: "🏆"
   },
   {
     id: "healthcare-governance",
@@ -71,7 +77,8 @@ const projects = [
     live: "https://frontend-ten-cyan-74.vercel.app/",
     frameColor: "#001a2e",
     hackathon: true,
-    hackathonLabel: "Hackathon Finalist"
+    hackathonLabel: "Hackathon Finalist",
+    icon: "🛡️"
   },
   {
     id: "aquastore",
@@ -81,7 +88,8 @@ const projects = [
     tech: "Next.js, TypeScript, Tailwind CSS, Vercel",
     github: "https://github.com/skshukla29/aquastore",
     live: "https://aquascore.vercel.app/",
-    frameColor: "#00263a"
+    frameColor: "#00263a",
+    icon: "💧"
   },
   {
     id: "citydemo",
@@ -91,7 +99,8 @@ const projects = [
     tech: "React, TypeScript, Tailwind CSS, Vercel",
     github: "https://github.com/skshukla29/citydemo",
     live: "https://citydemo-two.vercel.app/",
-    frameColor: "#1a2a14"
+    frameColor: "#1a2a14",
+    icon: "🏙️"
   }
 ];
 
