@@ -26,39 +26,62 @@ function LoadingScreen({ onComplete }) {
 
   return (
     <div className="loading-screen">
-      <div className="crt-overlay"></div>
-      <div className="loading-content">
-        <div className="loading-logo-box">
-          <div className="retro-stripes">
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-          </div>
-          <h1 className="retro-title">SHUKLA</h1>
-        </div>
-        
-        <div className="loading-text text-center">
-          <p>Shashikant Shukla Portfolio, Website</p>
-          <p>Version 1.0.0</p>
-        </div>
+      <div className="loading-tv">
+        <div className="loading-tv-frame">
+          <div className="loading-tv-screen">
+            <div className="crt-overlay"></div>
+            <div className="loading-content">
+              <div className="loading-logo-box">
+                <div className="retro-stripes" aria-hidden="true">
+                  <div className="stripe"></div>
+                  <div className="stripe"></div>
+                  <div className="stripe"></div>
+                  <div className="stripe"></div>
+                  <div className="stripe"></div>
+                  <div className="stripe"></div>
+                </div>
+                <h1 className="retro-title">SHUKLA</h1>
+              </div>
 
-        <div className="loading-progress-container">
-          <div className="loading-progress-bar">
-            {Array.from({ length: totalSegments }).map((_, i) => (
-              <div 
-                key={i} 
-                className={`progress-segment ${i < activeSegments ? 'filled' : ''}`}
-              ></div>
-            ))}
+              <div className="loading-copy">
+                <p className="loading-text-main">Shashikant Shukla Portfolio Website</p>
+                <p className="loading-text-sub">Version 1.0.0</p>
+              </div>
+
+              <div className="loading-progress-container">
+                <div className="loading-progress-bar" aria-label="Loading progress">
+                  {Array.from({ length: totalSegments }).map((_, i) => (
+                    <div
+                      key={i}
+                      className={`progress-segment ${i < activeSegments ? 'filled' : ''}`}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+
+              <footer className="loading-footer">
+                <p>Copyright (c) Shashikant Shukla, 2026. All Rights Reserved.</p>
+              </footer>
+            </div>
+          </div>
+
+          <div className="loading-tv-dials" aria-hidden="true">
+            <div className="tv-vent vents-top"></div>
+            <div className="tv-knob-group">
+              <span className="knob-label">VOL</span>
+              <span className="tv-knob small"></span>
+            </div>
+            <div className="tv-knob-group">
+              <span className="knob-label">TUNE</span>
+              <span className="tv-knob large"></span>
+            </div>
+            <div className="tv-knob-group">
+              <span className="knob-label">COLOR</span>
+              <span className="tv-knob small"></span>
+            </div>
+            <div className="tv-vent vents-bottom"></div>
           </div>
         </div>
-
-        <footer className="loading-footer">
-          <p>Copyright (c) Shashikant Shukla, 2026. All Rights Reserved.</p>
-        </footer>
       </div>
     </div>
   );

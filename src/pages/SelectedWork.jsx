@@ -1,20 +1,49 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import projects from "../data/projects";
 import FilmFrame from "../three/FilmFrame";
 
 export default function SelectedWork() {
-  const [active, setActive] = useState(0);
+  const [rotation, setRotation] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [direction, setDirection] = useState(-1);
 
   const total = projects.length;
+  const step = 360 / total;
+
+  const normalizedAngles = useMemo(
+    () =>
+      projects.map((_, index) => {
+        const angle = index * step + rotation;
+        return ((angle % 360) + 360) % 360;
+      }),
+    [rotation, step]
+  );
+
+  const active = useMemo(() => {
+    let candidate = 0;
+    let minDistance = Number.POSITIVE_INFINITY;
+
+    normalizedAngles.forEach((angle, index) => {
+      const distance = Math.min(Math.abs(angle), Math.abs(360 - angle));
+      if (distance < minDistance) {
+        minDistance = distance;
+        candidate = index;
+      }
+    });
+
+    return candidate;
+  }, [normalizedAngles]);
+
   const current = projects[active];
 
-  const previous = () => {
-    setActive((value) => (value - 1 + total) % total);
+  const rotateLeft = () => {
+    setDirection(1);
+    setRotation((value) => value + step);
   };
 
-  const next = () => {
-    setActive((value) => (value + 1) % total);
+  const rotateRight = () => {
+    setDirection(-1);
+    setRotation((value) => value - step);
   };
 
   useEffect(() => {
@@ -23,19 +52,17 @@ export default function SelectedWork() {
     }
 
     const timerId = setInterval(() => {
-      setActive((value) => (value + 1) % total);
-    }, 3200);
+      setRotation((value) => value + direction * 0.65);
+    }, 16);
 
     return () => clearInterval(timerId);
-  }, [isHovered, total]);
+  }, [direction, isHovered, total]);
 
   return (
     <section className="panel work-panel" id="work">
       <div className="work-top">
         <h2>{current.title}</h2>
-        <p>
-          Portfolio - {current.number} / {String(total).padStart(2, "0")}
-        </p>
+        <p>Portfolio - {current.number} / {String(total).padStart(2, "0")}</p>
       </div>
 
       <div
@@ -46,49 +73,44 @@ export default function SelectedWork() {
         <button
           className="arrow arrow-left"
           type="button"
-          aria-label="Previous project"
-          onClick={previous}
+          aria-label="Rotate reel left"
+          onClick={rotateLeft}
         >
-          ←
+          &lt;
         </button>
 
-        <div
-          className="film-strip"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "1rem",
-            width: "100%"
-          }}
-        >
-          {projects.map((project, index) => {
-            const isActive = index === active;
-            const distance = Math.abs(index - active);
+        <div className="film-strip-shell">
+          <div className="film-strip" style={{ "--rotation": `${rotation}deg`, "--ring-radius": "490px" }}>
+            {projects.map((project, index) => {
+              const isActive = index === active;
+              const angle = normalizedAngles[index];
+              const radians = (angle * Math.PI) / 180;
+              const depth = (Math.cos(radians) + 1) / 2;
 
-            return (
-              <FilmFrame
-                key={project.id}
-                project={project}
-                isActive={isActive}
-                onSelect={() => setActive(index)}
-                style={{
-                  opacity: isActive ? 1 : 0.72,
-                  transform: isActive ? "translateY(-4px) scale(1.01)" : "translateY(0) scale(1)",
-                  transition: "opacity 0.25s ease, transform 0.25s ease",
-                  zIndex: Math.max(1, 12 - distance)
-                }}
-              />
-            );
-          })}
+              return (
+                <FilmFrame
+                  key={project.id}
+                  project={project}
+                  isActive={isActive}
+                  onSelect={() => setRotation((value) => value - angle)}
+                  style={{
+                    "--angle": `${index * step}deg`,
+                    opacity: 0.3 + depth * 0.8,
+                    zIndex: Math.round(depth * 100)
+                  }}
+                />
+              );
+            })}
+          </div>
         </div>
 
         <button
           className="arrow arrow-right"
           type="button"
-          aria-label="Next project"
-          onClick={next}
+          aria-label="Rotate reel right"
+          onClick={rotateRight}
         >
-          →
+          &gt;
         </button>
       </div>
     </section>
