@@ -159,6 +159,7 @@ function highlightJava(code) {
 }
 
 function Navbar({ active, onJump }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const links = [
     ['home', 'Home'],
     ['work', 'Selected Work'],
@@ -179,17 +180,47 @@ function Navbar({ active, onJump }) {
             key={key}
             type="button"
             className={active === key ? 'nav-link active' : 'nav-link'}
-            onClick={() => onJump(key)}
+            onClick={() => { onJump(key); setMobileOpen(false); }}
           >
             {label}
           </button>
         ))}
       </nav>
 
-      <button className="call-btn" type="button" onClick={() => onJump('contact')}>
+      <button className="call-btn" type="button" onClick={() => { onJump('contact'); setMobileOpen(false); }}>
         <span className="phone-icon">☎</span>
         Hire Me
       </button>
+
+      <button
+        className={`nav-hamburger ${mobileOpen ? 'open' : ''}`}
+        aria-label="Open menu"
+        aria-expanded={mobileOpen}
+        onClick={() => setMobileOpen((s) => !s)}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+
+      {mobileOpen ? (
+        <div className="mobile-menu" role="dialog" aria-modal="true">
+          <div className="mobile-menu-inner">
+            <nav className="mobile-nav">
+              {links.map(([key, label]) => (
+                <button key={key} type="button" className="mobile-nav-link" onClick={() => { onJump(key); setMobileOpen(false); }}>
+                  {label}
+                </button>
+              ))}
+            </nav>
+            <div className="mobile-cta">
+              <button className="primary-btn" onClick={() => { onJump('work'); setMobileOpen(false); }}>View Work</button>
+              <button className="ghost-btn" onClick={() => { onJump('contact'); setMobileOpen(false); }}>Hire Me</button>
+            </div>
+          </div>
+          <button className="mobile-menu-close" aria-label="Close menu" onClick={() => setMobileOpen(false)}>×</button>
+        </div>
+      ) : null}
     </header>
   );
 }
