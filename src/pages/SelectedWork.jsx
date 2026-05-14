@@ -6,6 +6,20 @@ export default function SelectedWork() {
   const [rotation, setRotation] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState(-1);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  useEffect(() => {
+    if (expandedIndex === null) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setExpandedIndex(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [expandedIndex]);
 
   const total = projects.length;
   const step = 360 / total;
@@ -79,7 +93,7 @@ export default function SelectedWork() {
           &lt;
         </button>
 
-        <div className="film-strip-shell">
+        <div className={`film-strip-shell ${expandedIndex !== null ? "has-expanded-frame" : ""}`}>
           <div className="film-strip" style={{ "--rotation": `${rotation}deg`, "--ring-radius": "490px" }}>
             {projects.map((project, index) => {
               const isActive = index === active;
@@ -92,7 +106,16 @@ export default function SelectedWork() {
                   key={project.id}
                   project={project}
                   isActive={isActive}
-                  onSelect={() => setRotation((value) => value - angle)}
+                  expanded={expandedIndex === index}
+                  onSelect={() => {
+                    if (expandedIndex === index) {
+                      setExpandedIndex(null);
+                      return;
+                    }
+
+                    setRotation((value) => value - angle);
+                    setExpandedIndex(index);
+                  }}
                   style={{
                     "--angle": `${index * step}deg`,
                     opacity: 0.3 + depth * 0.8,

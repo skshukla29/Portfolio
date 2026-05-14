@@ -126,31 +126,34 @@ export default function FilmFrame({ project, isActive = false, expanded = false,
         {/* Expanded detail overlay */}
         {expanded ? (
           <div className="frame-expanded" ref={overlayRef} onClick={(e) => e.stopPropagation()}>
-            <button type="button" className="expanded-close" ref={closeBtnRef} onClick={(e) => { e.stopPropagation(); onSelect(); }} aria-label="Close project details">
-              ✕
-            </button>
-            <h3 className="expanded-title">{project.title}</h3>
-            <p className="expanded-desc">{project.desc}</p>
-            <p className="expanded-tech">{project.tech}</p>
-            <div className="expanded-actions">
-              <a
-                className={`frame-btn frame-btn-live ${project.live && project.live !== '#' ? '' : 'is-disabled'}`}
-                href={project.live && project.live !== '#' ? project.live : undefined}
-                target={project.live && project.live !== '#' ? '_blank' : undefined}
-                rel={project.live && project.live !== '#' ? 'noreferrer' : undefined}
-                onClick={(e) => { e.stopPropagation(); if (!project.live || project.live === '#') e.preventDefault(); }}
-              >
-                LIVE DEMO
-              </a>
-              <a
-                className="frame-btn frame-btn-code"
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                onClick={(e) => e.stopPropagation()}
-              >
-                GITHUB
-              </a>
+            <div className="frame-expanded-panel">
+              <button type="button" className="expanded-close" ref={closeBtnRef} onClick={(e) => { e.stopPropagation(); onSelect(); }} aria-label="Close project details">
+                ✕
+              </button>
+              <p className="expanded-kicker">Selected Project</p>
+              <h3 className="expanded-title">{project.title}</h3>
+              <p className="expanded-desc">{project.desc}</p>
+              <p className="expanded-tech">{project.tech}</p>
+              <div className="expanded-actions">
+                <a
+                  className={`frame-btn frame-btn-live ${project.live && project.live !== '#' ? '' : 'is-disabled'}`}
+                  href={project.live && project.live !== '#' ? project.live : undefined}
+                  target={project.live && project.live !== '#' ? '_blank' : undefined}
+                  rel={project.live && project.live !== '#' ? 'noreferrer' : undefined}
+                  onClick={(e) => { e.stopPropagation(); if (!project.live || project.live === '#') e.preventDefault(); }}
+                >
+                  LIVE DEMO
+                </a>
+                <a
+                  className="frame-btn frame-btn-code"
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  GITHUB
+                </a>
+              </div>
             </div>
           </div>
         ) : null}
